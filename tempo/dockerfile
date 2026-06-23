@@ -4,4 +4,7 @@ FROM grafana/tempo:${VERSION}
 
 COPY tempo.yml /etc/tempo/tempo.yml
 
+# Railway volumes mount as root:root; run as root so Tempo can write to /var/tempo
+USER root
+
 CMD ["-config.file=/etc/tempo/tempo.yml"]

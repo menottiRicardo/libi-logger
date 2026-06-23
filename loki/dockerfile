@@ -2,8 +2,9 @@ ARG VERSION=3.7.2
 
 FROM grafana/loki:${VERSION}
 
-# Copy the loki.yml configuration file to the container
 COPY loki.yml /etc/loki/loki-config.yaml
 
-# Command to run Loki
+# Railway volumes mount as root:root; run as root so Loki can write to /loki
+USER root
+
 CMD ["-config.file=/etc/loki/loki-config.yaml"]
