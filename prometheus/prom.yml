@@ -9,6 +9,4 @@ scrape_configs:
   - job_name: 'libi-api'
     metrics_path: /metrics
     static_configs:
-      # Local default. On Railway, update to the internal service URL
-      # e.g. libi-api.railway.internal:8000
-      - targets: ['host.docker.internal:8000']
+      - targets: ['libi-api.railway.internal:8000']
