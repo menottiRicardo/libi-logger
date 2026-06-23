@@ -2,5 +2,7 @@ ARG VERSION=13.0.2
 
 FROM grafana/grafana-oss:${VERSION}
 
-# copy the datasources and dashboards
 COPY datasources /etc/grafana/provisioning/datasources
+
+# Railway volumes mount as root:root; run as root so Grafana can write to /var/lib/grafana
+USER root
