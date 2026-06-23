@@ -51,7 +51,7 @@ services:
       - PROMETHEUS_INTERNAL_URL=http://prometheus:9090
       - TEMPO_INTERNAL_URL=http://tempo:3200
   
-  example_api: 
+  example_api:
     build:
       context: ./examples/api
       dockerfile: dockerfile
@@ -61,7 +61,19 @@ services:
       - TEMPO_URL=http://tempo:4318
       - TEMPO_SERVICE_NAME=example_api
 
-volumes: 
+  locomotive:
+    build: https://github.com/MykalMachon/locomotive.git
+    profiles: [railway]
+    restart: unless-stopped
+    environment:
+      - RAILWAY_API_KEY=${RAILWAY_API_KEY}
+      - RAILWAY_PROJECT_ID=${RAILWAY_PROJECT_ID}
+      - RAILWAY_SERVICE_IDS=${RAILWAY_SERVICE_IDS}
+      - LOKI_URL=http://loki:3100
+    depends_on:
+      - loki
+
+volumes:
   prometheus_data:
   loki_data:
   grafana_data:
